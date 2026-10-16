@@ -1,0 +1,61 @@
+<view class="page leader-page">
+  <view class="loading card" wx:if="{{loading}}">团长数据加载中…</view>
+  <view class="error card" wx:elif="{{errorMessage}}">
+    <view>{{errorMessage}}</view>
+    <button class="retry" bindtap="loadData">重新加载</button>
+  </view>
+  <block wx:elif="{{dashboard}}">
+    <view class="leader-hero">
+      <view class="eyebrow">团长工作台</view>
+      <view class="hero-name">{{dashboard.group_buy.name}}</view>
+      <view class="status-pill">{{dashboard.group_buy.status_display}}</view>
+    </view>
+    <view class="leader-actions card">
+      <button class="close-button" wx:if="{{dashboard.group_buy.status === 'active'}}" bindtap="closeGroupBuy" loading="{{closing}}" disabled="{{closing}}">{{closing ? '正在截团' : '截团'}}</button>
+      <view class="export-hint" wx:if="{{dashboard.group_buy.status === 'active'}}">截团后可导出最终商家备货表</view>
+      <button class="export-button" wx:if="{{dashboard.group_buy.status === 'closed'}}" bindtap="exportExcel" loading="{{exporting}}" disabled="{{exporting}}">{{exporting ? '正在生成备货表' : '导出商家备货表'}}</button>
+    </view>
+
+    <view class="section-title">经营概览</view>
+    <view class="summary-grid card">
+      <view class="summary-item"><view class="summary-number">{{dashboard.summary.order_count}}</view><view class="summary-label">订单 · 单</view></view>
+      <view class="summary-item"><view class="summary-number">{{dashboard.summary.item_count}}</view><view class="summary-label">商品 · 件</view></view>
+      <view class="summary-item"><view class="summary-number amount">¥{{dashboard.summary.total_amount}}</view><view class="summary-label">成交额</view></view>
+    </view>
+
+    <view class="section-title">商品汇总</view>
+    <view class="card list-card">
+      <view class="data-row" wx:for="{{dashboard.product_summary}}" wx:key="product_name">
+        <view class="row-main">{{item.product_name}}</view><view class="row-meta">{{item.quantity}}份</view><view class="row-amount">¥{{item.amount}}</view>
+      </view>
+      <view class="empty-row" wx:if="{{!dashboard.product_summary.length}}">暂无订单数据</view>
+    </view>
+
+    <view class="section-title">配送 / 取货汇总</view>
+    <view class="card pickup-card">
+      <block wx:if="{{dashboard.pickup_summary.dormitory.length}}">
+        <view class="group-label">学生公寓</view>
+        <view class="pickup-row" wx:for="{{dashboard.pickup_summary.dormitory}}" wx:key="location"><text>{{item.location}}栋</text><text>{{item.order_count}}单 · {{item.item_count}}件</text></view>
+      </block>
+      <block wx:if="{{dashboard.pickup_summary.other.length}}">
+        <view class="group-label">其他</view>
+        <view class="pickup-row" wx:for="{{dashboard.pickup_summary.other}}" wx:key="location"><text>{{item.location}}</text><text>{{item.order_count}}单 · {{item.item_count}}件</text></view>
+      </block>
+      <block wx:if="{{dashboard.pickup_summary.unknown.order_count}}">
+        <view class="group-label">历史未记录取货位置</view>
+        <view class="pickup-row"><text>未记录</text><text>{{dashboard.pickup_summary.unknown.order_count}}单 · {{dashboard.pickup_summary.unknown.item_count}}件</text></view>
+      </block>
+      <view class="empty-row" wx:if="{{!dashboard.pickup_summary.dormitory.length && !dashboard.pickup_summary.other.length && !dashboard.pickup_summary.unknown.order_count}}">暂无取货数据</view>
+    </view>
+
+    <view class="section-title">订单列表</view>
+    <view class="order-card card" wx:for="{{orders}}" wx:key="id" data-id="{{item.id}}" bindtap="openOrder">
+      <view class="order-head"><view class="follow-no">跟团号 {{item.follow_no}}</view><view class="order-status">{{item.status_display}}</view></view>
+      <view class="info-row"><text>联系人</text><text>{{item.customer_name}}</text></view>
+      <view class="info-row"><text>联系电话</text><text>{{item.phone_display}}</text></view>
+      <view class="info-row"><text>取货位置</text><text>{{item.pickup_display}}</text></view>
+      <view class="order-foot"><text>{{item.item_count}}件 · {{item.created_at_display}}</text><text class="order-price">¥{{item.total_amount}} ›</text></view>
+    </view>
+    <view class="card empty-row" wx:if="{{!orders.length}}">暂无订单</view>
+  </block>
+</view>

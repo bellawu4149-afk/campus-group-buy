@@ -1,0 +1,23 @@
+<view class="page detail-page">
+  <view class="loading card" wx:if="{{loading}}">订单详情加载中…</view>
+  <view class="error card" wx:elif="{{errorMessage}}"><view>{{errorMessage}}</view><button class="retry" bindtap="loadData" wx:if="{{orderId}}">重新加载</button></view>
+  <block wx:elif="{{order}}">
+    <view class="detail-hero card"><view class="detail-label">跟团号</view><view class="follow-no">{{order.follow_no}}</view><view class="status">{{order.status_display}}</view></view>
+    <view class="card info-card">
+      <view class="info-row"><text>订单号</text><text class="long-value">{{order.order_no}}</text></view>
+      <view class="info-row"><text>团购名称</text><text>{{order.group_buy_name}}</text></view>
+      <view class="info-row"><text>联系人</text><text>{{order.customer_name}}</text></view>
+      <view class="info-row"><text>联系电话</text><text>{{order.phone_display}}</text></view>
+      <view class="info-row"><text>取货位置</text><text>{{order.pickup_display}}</text></view>
+      <view class="info-row"><text>下单时间</text><text>{{order.created_at_display}}</text></view>
+    </view>
+    <view class="section-title">商品明细</view>
+    <view class="card items-card">
+      <view class="item-row" wx:for="{{order.items}}" wx:key="index">
+        <view class="item-name">{{item.product_name}}</view><view class="item-calc">¥{{item.unit_price}} × {{item.quantity}}</view><view class="item-subtotal">¥{{item.subtotal}}</view>
+      </view>
+      <view class="empty-row" wx:if="{{!order.items.length}}">暂无商品明细</view>
+      <view class="total-row"><text>订单总金额</text><text>¥{{order.total_amount}}</text></view>
+    </view>
+  </block>
+</view>

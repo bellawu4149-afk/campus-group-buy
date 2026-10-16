@@ -1,0 +1,11 @@
+page { background: #f7f5f1; color: #2f2b27; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; font-size: 28rpx; }
+button { margin: 0; }
+button::after { border: 0; }
+.page { min-height: 100vh; padding: 32rpx; box-sizing: border-box; }
+.card { background: #fff; border-radius: 28rpx; box-shadow: 0 10rpx 32rpx rgba(92, 67, 46, .07); }
+.section-title { font-size: 36rpx; line-height: 1.4; font-weight: 700; }
+.section-subtitle { color: #978d84; font-size: 24rpx; }
+.primary-button { background: #d96c47; color: #fff; border-radius: 999rpx; font-size: 30rpx; font-weight: 600; line-height: 92rpx; }
+.primary-button[disabled] { background: #d8d2cc; color: #fff; }
+.price { color: #d35632; font-weight: 700; }
+.empty { padding: 120rpx 40rpx; text-align: center; color: #9c938b; }

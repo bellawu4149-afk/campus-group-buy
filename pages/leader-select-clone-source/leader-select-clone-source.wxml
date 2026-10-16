@@ -1,0 +1,11 @@
+<view class="page source-page">
+  <view class="intro"><view class="page-title">选择历史团购</view><view class="page-subtitle">商品配置将从所选团购原样复制</view></view>
+  <view class="loading card" wx:if="{{loading}}">来源团购加载中…</view>
+  <view class="error card" wx:elif="{{errorMessage}}"><view>{{errorMessage}}</view><button class="retry" bindtap="loadData">重新加载</button></view>
+  <block wx:else>
+    <view class="source-card card" wx:for="{{groupBuys}}" wx:key="id" data-id="{{item.id}}" bindtap="selectSource">
+      <view class="source-main"><view class="source-name">{{item.name}}</view><view class="source-meta">{{item.status_display}} · {{item.product_count}} 个商品</view><view class="created-at">创建于 {{item.created_at_display}}</view></view><view class="arrow">›</view>
+    </view>
+    <view class="empty card" wx:if="{{!groupBuys.length}}">暂无可复制的团购</view>
+  </block>
+</view>

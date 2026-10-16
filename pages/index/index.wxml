@@ -1,0 +1,44 @@
+﻿<view class="page home-page">
+  <view class="plaza-header">
+    <view class="header-eyebrow">让校园生活，多一点期待</view>
+    <view class="plaza-title">校园团购广场</view>
+    <view class="school-pill"><text class="location-icon">📍</text><text>{{schoolName}}</text></view>
+    <view class="header-orbit orbit-one"></view>
+    <view class="header-orbit orbit-two"></view>
+  </view>
+
+  <view class="section-head">
+    <view><view class="section-title">正在进行的团购</view><view class="section-note">发现校园里的好物与好价</view></view>
+    <view class="group-count" wx:if="{{!loading && !errorMessage && groupBuys.length}}">{{groupBuys.length}} 个进行中</view>
+  </view>
+
+  <view class="state-card" wx:if="{{loading}}">
+    <view class="state-symbol">···</view>
+    <view class="state-title">正在寻找校园好物</view>
+    <view class="state-copy">团购广场马上就好</view>
+  </view>
+  <view class="state-card" wx:elif="{{errorMessage}}">
+    <view class="state-symbol">☁</view>
+    <view class="state-title">团购广场暂时没连上</view>
+    <view class="state-copy">{{errorMessage}}</view>
+    <button class="retry" bindtap="loadData">重新加载</button>
+  </view>
+  <block wx:else>
+    <view class="group-card" wx:for="{{groupBuys}}" wx:key="id" data-id="{{item.id}}" bindtap="openGroup" hover-class="group-card-pressed" hover-stay-time="80">
+      <view class="cover-wrap">
+        <image class="group-cover" src="{{item.coverUrl}}" mode="aspectFill" lazy-load="{{true}}" data-id="{{item.id}}" binderror="handleCoverError" />
+        <view class="status-badge"><view class="status-dot"></view>进行中</view>
+      </view>
+      <view class="group-content">
+        <view class="group-title">{{item.name}}</view>
+        <view class="card-footer"><text class="campus-label">校园团购</text><view class="enter-group">查看团购<text class="enter-arrow">↗</text></view></view>
+      </view>
+    </view>
+    <view class="state-card empty-state" wx:if="{{!groupBuys.length}}">
+      <view class="state-symbol">☀</view>
+      <view class="state-title">暂时还没有新的团购</view>
+      <view class="state-copy">先享受校园时光，好物开团后会在这里见面</view>
+    </view>
+    <view class="list-end" wx:else>校园里的小确幸，从这里开始</view>
+  </block>
+</view>

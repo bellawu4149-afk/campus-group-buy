@@ -1,0 +1,7 @@
+<view class="page create-page">
+  <view class="intro"><view class="page-title">选择开团方式</view><view class="page-subtitle">从适合当前业务的方式开始创建</view></view>
+  <view class="method-card card {{item.available ? '' : 'unavailable'}}" wx:for="{{creationMethods}}" wx:key="id" data-id="{{item.id}}" bindtap="chooseMethod">
+    <view class="method-content"><view class="method-title">{{item.title}}</view><view class="method-description">{{item.description}}</view><view class="coming" wx:if="{{!item.available}}">即将支持</view></view>
+    <view class="arrow" wx:if="{{item.available}}">›</view>
+  </view>
+</view>

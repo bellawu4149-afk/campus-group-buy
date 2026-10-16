@@ -1,0 +1,13 @@
+<view class="page groups-page">
+  <view class="page-head"><view><view class="page-title">我的团购</view><view class="page-subtitle">管理进行中与历史团购</view></view><button class="add-button" bindtap="openCreateGroup">＋</button></view>
+  <view class="loading card" wx:if="{{loading}}">团购列表加载中…</view>
+  <view class="error card" wx:elif="{{errorMessage}}"><view>{{errorMessage}}</view><button class="retry" bindtap="loadData">重新加载</button></view>
+  <block wx:else>
+    <view class="group-card card" wx:for="{{groupBuys}}" wx:key="id" data-id="{{item.id}}" bindtap="openDashboard">
+      <view class="card-head"><view class="group-name">{{item.name}}</view><view class="status status-{{item.status}}">{{item.status_display}}</view></view>
+      <view class="metrics"><view><text>{{item.order_count}}</text><label>订单</label></view><view><text>{{item.item_count}}</text><label>商品件数</label></view><view><text>¥{{item.total_amount}}</text><label>成交额</label></view></view>
+      <view class="created-at">创建于 {{item.created_at_display}} <text>›</text></view>
+    </view>
+    <view class="empty card" wx:if="{{!groupBuys.length}}">暂无团购，点击右上角＋创建</view>
+  </block>
+</view>

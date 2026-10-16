@@ -1,0 +1,16 @@
+<view class="page orders-page">
+  <view class="orders-head"><view class="section-title">我的订单</view><view class="section-subtitle">当前账号的团购订单</view></view>
+  <view class="history-notice">登录前产生的历史订单暂未关联当前账号，如需核对请联系团长。</view>
+  <view class="state-card card" wx:if="{{loading}}">正在加载订单...</view>
+  <view class="state-card card" wx:elif="{{loadFailed}}"><view>订单加载失败</view><button class="retry-button" bindtap="retryLoad">重新加载</button></view>
+  <view wx:elif="{{orders.length}}">
+    <view class="order-card card" wx:for="{{orders}}" wx:key="id">
+      <view class="order-head"><view><view class="group-name">{{item.groupName}}</view><view class="order-time">下单时间 {{item.createdAt}}</view></view><view class="status">{{item.status}}</view></view>
+      <view class="join-number-row"><text>跟团号</text><text class="join-number">{{item.joinNumber}}</text></view>
+      <view class="goods-line" wx:for="{{item.items}}" wx:for-item="goods" wx:key="id"><text>{{goods.name}}</text><text>¥{{goods.unitPrice}} × {{goods.quantity}}</text></view>
+      <view class="contact">取货位置：{{item.pickupDisplay}}<br/>联系人：{{item.contact.name}} · {{item.contact.phone}}</view>
+      <view class="order-total">共 {{item.totalCount}} 件　实付 <text>¥{{item.totalAmount}}</text></view>
+    </view>
+  </view>
+  <view class="empty card" wx:else><view class="empty-icon">🧺</view><view class="empty-title">当前账号还没有订单</view><view>新下的订单会显示在这里</view><button class="shop-button" bindtap="goShopping">去逛逛</button></view>
+</view>

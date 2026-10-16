@@ -1,0 +1,24 @@
+<view class="page clone-page">
+  <view class="loading card" wx:if="{{loading}}">团购配置加载中…</view>
+  <view class="error card" wx:elif="{{errorMessage}}"><view>{{errorMessage}}</view><button class="retry" bindtap="loadData" wx:if="{{sourceGroupBuyId}}">重新加载</button></view>
+  <block wx:elif="{{config}}">
+    <view class="source-card card">
+      <view class="field-label">来源团购</view>
+      <view class="source-name">{{config.group_buy.name}}</view>
+    </view>
+    <view class="form-card card">
+      <view class="field-label">新团名称</view>
+      <input value="{{name}}" maxlength="100" placeholder="请输入新团名称" bindinput="handleNameInput" />
+    </view>
+    <view class="section-title">商品预览</view>
+    <view class="products card">
+      <view class="product-row" wx:for="{{config.products}}" wx:key="group_buy_product_id">
+        <view><view class="product-name">{{item.name}}</view><view class="product-status" wx:if="{{!item.is_active}}">当前停用</view></view>
+        <view class="product-price">¥{{item.sale_price}}</view>
+      </view>
+      <view class="empty-row" wx:if="{{!config.products.length}}">来源团购暂无商品配置</view>
+    </view>
+    <view class="copy-note">将原样复制商品、售价、排序和当前启用状态，不会复制历史订单。</view>
+    <button class="primary-button create-button" bindtap="createGroup" loading="{{creating}}" disabled="{{creating}}">{{creating ? '正在创建' : '创建新团'}}</button>
+  </block>
+</view>

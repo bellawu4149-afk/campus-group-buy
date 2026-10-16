@@ -1,0 +1,41 @@
+{
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "projectname": "campus-group-buy",
+  "setting": {
+    "compileHotReLoad": true,
+    "urlCheck": false,
+    "coverView": true,
+    "lazyloadPlaceholderEnable": false,
+    "skylineRenderEnable": false,
+    "preloadBackgroundData": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "showES6CompileOption": false,
+    "bigPackageSizeSupport": false,
+    "useApiHook": true,
+    "checkInvalidKey": true,
+    "useStaticServer": false,
+    "useLanDebug": false,
+    "ignoreDevUnusedFiles": true
+  },
+  "libVersion": "3.17.3",
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/leader-group-buys/leader-group-buys",
+          "pathName": "pages/leader-group-buys/leader-group-buys",
+          "query": "",
+          "scene": null,
+          "launchMode": "default"
+        },
+        {
+          "name": "团长端 V1 验收",
+          "pathName": "pages/leader-dashboard/leader-dashboard",
+          "query": "group_buy_id=1",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,33 @@
+<view class="detail-page">
+  <view class="detail-hero">
+    <view class="status-pill">● 进行中</view><view class="detail-title">{{groupBuy.name || '团购详情'}}</view>
+  </view>
+  <view class="management-card" wx:if="{{management}}">
+    <view class="management-top"><view class="leader-badge">我是团长</view><view class="management-caption">本团经营概览</view></view>
+    <view class="management-body">
+      <view class="metric"><view class="metric-value">{{management.orderCount}}</view><view class="metric-label">订单数</view></view>
+      <view class="metric"><view class="metric-value amount">¥{{management.totalAmount}}</view><view class="metric-label">订单金额合计</view></view>
+      <view class="management-link" bindtap="openOrderManagement">订单管理 <text>→</text></view>
+    </view>
+  </view>
+  <view class="management-unavailable" wx:if="{{managementUnavailable}}">经营信息暂时无法加载，商品浏览和下单不受影响</view>
+  <view class="list-head"><view class="section-title">选择商品</view><view class="section-subtitle">价格以当前团购配置为准</view></view>
+  <view class="product-list">
+    <view class="product-card card" wx:for="{{products}}" wx:key="id">
+      <view class="product-cover"><text>{{item.emoji}}</text></view>
+      <view class="product-body"><view class="product-name">{{item.name}}</view><view class="product-desc">{{item.description}}</view>
+        <view class="product-bottom">
+          <view class="price">¥{{item.price}}</view>
+          <view class="stepper">
+            <button class="step-btn minus" data-id="{{item.id}}" bindtap="decreaseQuantity" disabled="{{item.quantity === 0}}">−</button>
+            <text class="quantity">{{item.quantity}}</text>
+            <button class="step-btn plus" data-id="{{item.id}}" bindtap="increaseQuantity">+</button>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="product-card card" wx:if="{{!products.length}}"><view class="product-body">{{productsMessage}}</view></view>
+  </view>
+  <view class="cart-space"></view>
+  <view class="cart-bar"><view class="cart-summary"><view><text class="cart-count">{{totalCount}}</text> 件商品</view><view class="cart-total">合计 <text>¥{{totalAmount}}</text></view></view><button class="checkout" disabled="{{totalCount === 0 || !groupBuyAvailable || !productsLoaded}}" bindtap="goConfirm">去结算</button></view>
+</view>

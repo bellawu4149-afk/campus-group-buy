@@ -1,0 +1,26 @@
+<view class="page success-page" wx:if="{{order}}">
+  <view class="success-icon">✓</view>
+  <view class="success-title">订单提交成功</view>
+  <view class="success-subtitle">V1 暂以提交成功模拟支付成功</view>
+
+  <view class="number-card">
+    <view class="number-label">你的跟团号</view>
+    <view class="join-number">{{order.joinNumber}}</view>
+    <view class="number-tip">取货时请向团长出示此号码</view>
+  </view>
+
+  <view class="card summary-card">
+    <view class="summary-row"><text>团购活动</text><text>{{order.groupName}}</text></view>
+    <view class="summary-row"><text>下单时间</text><text>{{order.createdAt}}</text></view>
+    <view class="summary-row"><text>商品数量</text><text>{{order.totalCount}} 件</text></view>
+    <view class="summary-row"><text>取货位置</text><text>{{order.pickupDisplay || order.contact.pickupInfo}}</text></view>
+    <view class="summary-row"><text>联系人</text><text>{{order.contact.name}}</text></view>
+    <view class="summary-row"><text>联系电话</text><text>{{order.contact.phone}}</text></view>
+    <view class="summary-row"><text>订单金额</text><text class="amount">¥{{order.totalAmount}}</text></view>
+  </view>
+
+  <button class="primary-button" bindtap="viewOrders">查看我的订单</button>
+  <button class="secondary-button" bindtap="backHome">返回首页</button>
+</view>
+
+<view class="page empty" wx:else>订单信息不存在</view>

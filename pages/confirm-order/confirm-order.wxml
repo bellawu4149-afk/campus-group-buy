@@ -1,0 +1,21 @@
+<view class="page order-page">
+  <view class="notice">请确认商品与取货信息，提交后可在“我的订单”查看</view>
+  <view class="card block"><view class="block-title">商品清单</view>
+    <view class="order-item" wx:for="{{items}}" wx:key="id"><view class="item-emoji">{{item.emoji}}</view><view class="item-main"><view>{{item.name}}</view><view class="item-meta">¥{{item.price}} × {{item.quantity}}</view></view><view class="price">¥{{item.subtotal}}</view></view>
+    <view class="total-row"><text>共 {{totalCount}} 件</text><view>合计 <text class="total-price">¥{{totalAmount}}</text></view></view>
+  </view>
+  <view class="card block form-block"><view class="block-title">联系人信息</view>
+    <view class="field"><view class="label">姓名 / 昵称 <text>*</text></view><input placeholder="怎么称呼你" maxlength="30" data-field="name" bindinput="handleInput" /></view>
+    <view class="field"><view class="label">联系方式 <text>*</text></view><input type="text" placeholder="手机号、微信号等" maxlength="30" data-field="phone" bindinput="handleInput" /></view>
+  </view>
+  <view class="card block pickup-block"><view class="block-title">取货位置 <text class="required">*</text></view>
+    <view class="pickup-options">
+      <view class="pickup-option {{pickupType === 'dormitory' ? 'active' : ''}}" data-type="dormitory" bindtap="selectPickupType">学生公寓</view>
+      <view class="pickup-option {{pickupType === 'other' ? 'active' : ''}}" data-type="other" bindtap="selectPickupType">其他</view>
+    </view>
+    <view class="pickup-input-row" wx:if="{{pickupType === 'dormitory'}}"><input type="number" value="{{dormitoryBuilding}}" placeholder="请输入楼栋号" maxlength="3" bindinput="handleDormitoryInput" /><text>栋</text></view>
+    <textarea wx:if="{{pickupType === 'other'}}" value="{{otherPickupLocation}}" placeholder="请输入具体取货位置" maxlength="100" auto-height data-field="otherPickupLocation" bindinput="handleInput"></textarea>
+    <view class="pickup-hint" wx:if="{{pickupType === 'dormitory'}}">请输入 1～999 的楼栋数字</view>
+  </view>
+  <button class="primary-button submit" bindtap="submitOrder" loading="{{submitting}}" disabled="{{submitting || !groupBuyAvailable}}">{{submitting ? '正在提交' : '提交订单 · ¥' + totalAmount}}</button>
+</view>

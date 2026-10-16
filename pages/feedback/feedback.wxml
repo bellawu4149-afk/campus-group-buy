@@ -1,0 +1,20 @@
+<view class="page feedback-page">
+  <view class="feedback-hero"><view class="feedback-icon">💬</view><view class="section-title">一起把团购做得更好</view><view class="section-subtitle">你的真实体验会帮助我们改进下一版</view></view>
+
+  <view class="card feedback-card"><view class="question">整体满意度 <text>*</text></view><view class="stars"><view class="star {{serviceSatisfaction >= item ? 'active' : ''}}" wx:for="{{ratings}}" wx:key="*this" data-value="{{item}}" bindtap="chooseRating">★</view></view><view class="hint">{{serviceSatisfaction ? serviceSatisfaction + ' 分' : '点击星星评分'}}</view></view>
+
+  <view class="card feedback-card"><view class="question">这次使用体验如何？ <text>*</text></view><radio-group bindchange="chooseExperience"><label class="option"><radio value="顺畅好用" checked="{{overallExperience === '顺畅好用'}}" color="#d96c47"/>顺畅好用</label><label class="option"><radio value="基本可用" checked="{{overallExperience === '基本可用'}}" color="#d96c47"/>基本可用</label><label class="option"><radio value="需要改进" checked="{{overallExperience === '需要改进'}}" color="#d96c47"/>需要改进</label></radio-group></view>
+
+  <view class="card feedback-card"><view class="question">相比微信群 / 快团团更方便吗？ <text>*</text></view><radio-group bindchange="chooseConvenience"><label class="option"><radio value="更方便" checked="{{convenience === '更方便'}}" color="#d96c47"/>更方便</label><label class="option"><radio value="差不多" checked="{{convenience === '差不多'}}" color="#d96c47"/>差不多</label><label class="option"><radio value="不太方便" checked="{{convenience === '不太方便'}}" color="#d96c47"/>不太方便</label></radio-group></view>
+
+  <view class="card feedback-card"><view class="question">推荐 / 销量榜对你有帮助吗？ <text>*</text></view><radio-group bindchange="chooseHelpful"><label class="option"><radio value="很有帮助" checked="{{rankingHelpful === '很有帮助'}}" color="#d96c47"/>很有帮助</label><label class="option"><radio value="有一点" checked="{{rankingHelpful === '有一点'}}" color="#d96c47"/>有一点</label><label class="option"><radio value="没有帮助" checked="{{rankingHelpful === '没有帮助'}}" color="#d96c47"/>没有帮助</label></radio-group></view>
+
+  <view class="card feedback-card"><view class="question">以后愿意继续使用吗？ <text>*</text></view><radio-group bindchange="chooseContinueUse"><label class="option"><radio value="愿意" checked="{{continueUse === '愿意'}}" color="#d96c47"/>愿意</label><label class="option"><radio value="看情况" checked="{{continueUse === '看情况'}}" color="#d96c47"/>看情况</label><label class="option"><radio value="不愿意" checked="{{continueUse === '不愿意'}}" color="#d96c47"/>不愿意</label></radio-group></view>
+
+  <view class="card feedback-card"><view class="question">希望增加哪些功能？</view><view class="question-tip">可多选</view><checkbox-group bindchange="chooseDesiredFeatures"><label class="option"><checkbox value="订单提醒" color="#d96c47"/>订单提醒</label><label class="option"><checkbox value="新品推荐" color="#d96c47"/>新品推荐</label><label class="option"><checkbox value="团购日历" color="#d96c47"/>团购日历</label><label class="option"><checkbox value="到货通知" color="#d96c47"/>到货通知</label></checkbox-group></view>
+
+  <view class="card feedback-card"><view class="question">意见建议</view><textarea value="{{suggestion}}" placeholder="想吃的新品、取货体验、页面建议……" maxlength="300" bindinput="inputSuggestion"></textarea><view class="count">{{suggestion.length}} / 300</view></view>
+
+  <button class="primary-button" bindtap="submitFeedback" loading="{{submitting}}" disabled="{{submitting || submitted}}">{{submitting ? '正在提交' : (submitted ? '已提交' : '提交反馈')}}</button>
+  <view class="saved-tip" wx:if="{{submitted}}">✓ 反馈已提交至后台</view>
+</view>
